@@ -17,15 +17,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class HookShotEntityListener extends EntityListener{
 	
-	private final HookShot plugin;
+	private final Main plugin;
 	
-	public HookShotEntityListener(final HookShot plugin)
+	public HookShotEntityListener(final Main plugin)
 	{
 		this.plugin = plugin;
 	}
-	
-	
-	//Checks to make sure arrow is not currently flying
 	
 	 public void onProjectileHit( ProjectileHitEvent event)
 	    {
@@ -41,66 +38,39 @@ public class HookShotEntityListener extends EntityListener{
 	        		{
 	            		if (player.getName().equals(HookShotPlayerListener.climbingPlayers.get(x).getPlayer().getName()))
 	        			{
-	            			//player.sendMessage(ChatColor.RED + "Your hook hit!");
-	            			//climbingPlayers.get(x).getBlock()
-	            			
-	            			
+	            			player.sendMessage(ChatColor.RED + "Your hook hit!");
+	            			climbingPlayers.get(x).getBlock()
 	            			
 	            			playerProfile me = HookShotPlayerListener.climbingPlayers.get(x);
 	            			me.setArrowHit(true);
-	    			
 	        			}
 	        		}	
 	    		}
 	    	}
 	    }
-	    
 	
-	
-	public void onEntityDamage(EntityDamageEvent event)
-	{
-		if(event instanceof EntityDamageByEntityEvent)
-		{
+	public void onEntityDamage(EntityDamageEvent event) {
+		if(event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent eventb = (EntityDamageByEntityEvent)event;
 			if(eventb.getDamager() instanceof Arrow && (((Player) ((Arrow) eventb.getDamager()).getShooter()).getItemInHand()).getTypeId() == 262)
-			{
+ {
 				event.setDamage(0);
 				event.setCancelled(true);
-				
-		
 			}
 		}
-		
-		if(event.getEntity() instanceof Player)
-		{
+		if(event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			ItemStack is = player.getItemInHand();
-			if(is.getTypeId() == plugin.pullItem)
-			{
-				if( event.getCause() == DamageCause.FALL && event.getDamage() <= 1)
-				{
+			if(is.getTypeId() == plugin.pullItem) {
+				if( event.getCause() == DamageCause.FALL && event.getDamage() <= 1) {
 					event.setCancelled(true);
-					
 				}
-				if( event.getCause() == DamageCause.SUFFOCATION && event.getDamage() <= 1)
-				{
+				if( event.getCause() == DamageCause.SUFFOCATION && event.getDamage() <= 1) {
 					event.setCancelled(true);
-					
 				}
-				
 				if( event.getCause() == DamageCause.PROJECTILE)
 					event.setCancelled(true);
-			
 			}
 		}
-	
-		
-		
-		
-		
-		
 	}
-	
-	
-
 }
