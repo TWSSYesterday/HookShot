@@ -3,13 +3,12 @@ package me.salamijack.HookShot;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.World;
-//import org.bukkit.Player;
+import org.bukkit.Player;
 import org.bukkit.block.Block;
 import org.bukkit.block.NoteBlock;
 import org.bukkit.entity.Arrow;
@@ -31,46 +30,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
-import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.sound.Music;
-import org.getspout.spoutapi.sound.SoundEffect;
-import org.getspout.spoutapi.SpoutManager;
 
-
-
-public class HookShotPlayerListener extends PlayerListener
-{
-	
-	//public Arrow zipline = null;
+public class HookShotPlayerListener extends PlayerListener {
 	public boolean isHooking = false;
-    private final HookShot plugin;
+    private final Main plugin;
     public Server server = null;
     public static LinkedList<playerProfile> climbingPlayers = new LinkedList<playerProfile>();
     
- 
-    
-   
-    
-    
-    public HookShotPlayerListener(HookShot instance) 
-    {
+    public HookShotPlayerListener(Main instance) {
         plugin = instance;
-   
-        
-    }
+   }
     
-    public void onPlayerJoin(PlayerJoinEvent event)
-    {
-    	
+    public void onPlayerJoin(PlayerJoinEvent event) {
     }
-    
-    public void onPlayerQuit(PlayerQuitEvent event)
-    {
-    	
+    public void onPlayerQuit(PlayerQuitEvent event) {
     }
-   
-    public void onPlayerInteract(PlayerInteractEvent event)
-    {
+    public void onPlayerInteract(PlayerInteractEvent event) {
     
     	Player player = event.getPlayer();
     	Boolean found = false;
@@ -83,31 +58,23 @@ public class HookShotPlayerListener extends PlayerListener
     	Location locheck = player.getLocation();
     
     	
-  if(HookShotPermissions.getInstance().use(player) || HookShotPermissions.getInstance().permissionsEnabled == false || player.hasPermission("hookshot.use"))
-    
-    //if( player.hasPermission("hookshot.use"))
-    	
-    {
+  if(player.hasPermission("hookshot.use")) {
 	  
 	 locheck.setY(locheck.getY()-1);
 	 Block flycheck = locheck.getBlock();
     
-	//if((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && flycheck.getType() != Material.AIR)
+	if((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && flycheck.getType() != Material.AIR)
     	
     if((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK))
     {
-    	
-    
-    //FIRING THE ARROW, AND CHECKING TO SEE IF THE PLAYER IS CLIMBING
-    	
-    	if(is.getTypeId() == plugin.hookItem)	
+    	 if(is.getTypeId() == plugin.hookItem)	
     	{
     		for(int x = 0; x < climbingPlayers.size(); x++)
     		{
         		if (player.getName().equals(climbingPlayers.get(x).getPlayer().getName()))
     			{
-        			//player.sendMessage(ChatColor.RED + "This player is already climbing..");
-        			//climbingPlayers.get(x).getBlock()
+        			player.sendMessage(ChatColor.RED + "This player is already climbing..");
+        			climbingPlayers.get(x).getBlock()
         			
         			found = true;
         			
