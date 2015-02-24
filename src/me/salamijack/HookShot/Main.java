@@ -21,7 +21,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 
 
-public class HookShot extends JavaPlugin{
+public class Main extends JavaPlugin{
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	 private final HookShotPlayerListener playerListener = new HookShotPlayerListener(this);
@@ -37,24 +37,12 @@ public class HookShot extends JavaPlugin{
 	    public int pullItem;
 	    public int pullCost;
 	    
-	    
-	    // NOTE: There should be no need to define a constructor any more for more info on moving from
-	    // the old constructor see:
-	    // http://forums.bukkit.org/threads/too-long-constructor.5032/
 
 	    public void onDisable() {
-	        // TODO: Place any custom disable code here
-
-	        // NOTE: All registered events are automatically unregistered when a plugin is disabled
-
-	        // EXAMPLE: Custom code, here we just output some info so we can check all is well
 	        System.out.println("Goodbye world!");
 	    }
 
 	    public void onEnable() {
-	        // TODO: Place any custom enable code here including the registration of any events
-
-	        // Register our events
 	        PluginManager pm = getServer().getPluginManager();
 	        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
 	        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
@@ -68,15 +56,7 @@ public class HookShot extends JavaPlugin{
 	        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Highest, this);	  
 	        pm.registerEvent(Event.Type.VEHICLE_EXIT, vehicleListener, Priority.High, this);
 	        pm.registerEvent(Event.Type.PROJECTILE_HIT, entityListener, Priority.High, this);
-	   
-	        //log.info("SALAMITEST STARTED");
-	      
-
-	        // Register our commands
-	    //    getCommand("pos").setExecutor(new SalamiTestPosCommand(this));
-	      //("debug").setExecutor(new SalamiTEstDebugCommand(this));
-
-	        // EXAMPLE: Custom code, here we just output some info so we can check all is well
+	        
 	        HookShotPermissions.initialize(getServer());
 	        setupPermissions();
 	        PluginDescriptionFile pdfFile = this.getDescription();
@@ -146,7 +126,6 @@ public class HookShot extends JavaPlugin{
 	    			this.permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 	    		}
 	    		else {
-	    			//log.info("Permission system not detected, defaulting to OP");
 	    		}
 	    	}
 	    }
